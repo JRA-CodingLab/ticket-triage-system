@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ticket Triage System</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Ticket Triage System</h1>
+    <p>Paste a customer support ticket below to classify and route it.</p>
+
+    <form method="POST" action="/">
+      <label for="ticket">Ticket Text</label>
+      <textarea id="ticket" name="ticket" rows="6" placeholder="Describe your issue…">{{ ticket_text }}</textarea>
+      <button type="submit">Classify</button>
+    </form>
+
+    {% if result %}
+    <div class="result-box">
+      <h2>Classification Result</h2>
+      <table>
+        <tr><th>Category</th><td>{{ result.category }}</td></tr>
+        <tr><th>Urgency</th><td>{{ "Yes" if result.urgency == 1 else "No" }}</td></tr>
+        <tr><th>Priority</th><td>{{ result.priority }}</td></tr>
+        <tr><th>Department</th><td>{{ result.department }}</td></tr>
+      </table>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>
